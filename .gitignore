@@ -1,0 +1,31 @@
+# Build artifacts
+bin/
+obj/
+
+# VS Code
+.vscode/
+
+# User-specific
+*.user
+*.suo
+
+# ASP.NET Core
+*.db
+*.sqlite
+appsettings.Development.json
+appsettings.Local.json
+
+# Launch settings
+Properties/launchSettings.json
+
+# Razor
+**/Generated/
+**/*.g.cs
+**/StaticWebAssets/
+
+# macOS
+.DS_Store
+
+# Node (if using JS builds)
+node_modules/
+dist/
