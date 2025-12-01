@@ -1,0 +1,11 @@
+/Users/admin/Documents/CodingProjects/CourseEnrollmentApp/CourseEnrollmentApp.Domain/bin/Debug/net8.0/CourseEnrollmentApp.Domain.deps.json
+/Users/admin/Documents/CodingProjects/CourseEnrollmentApp/CourseEnrollmentApp.Domain/bin/Debug/net8.0/CourseEnrollmentApp.Domain.dll
+/Users/admin/Documents/CodingProjects/CourseEnrollmentApp/CourseEnrollmentApp.Domain/bin/Debug/net8.0/CourseEnrollmentApp.Domain.pdb
+/Users/admin/Documents/CodingProjects/CourseEnrollmentApp/CourseEnrollmentApp.Domain/obj/Debug/net8.0/CourseEnrollmentApp.Domain.GeneratedMSBuildEditorConfig.editorconfig
+/Users/admin/Documents/CodingProjects/CourseEnrollmentApp/CourseEnrollmentApp.Domain/obj/Debug/net8.0/CourseEnrollmentApp.Domain.AssemblyInfoInputs.cache
+/Users/admin/Documents/CodingProjects/CourseEnrollmentApp/CourseEnrollmentApp.Domain/obj/Debug/net8.0/CourseEnrollmentApp.Domain.AssemblyInfo.cs
+/Users/admin/Documents/CodingProjects/CourseEnrollmentApp/CourseEnrollmentApp.Domain/obj/Debug/net8.0/CourseEnrollmentApp.Domain.csproj.CoreCompileInputs.cache
+/Users/admin/Documents/CodingProjects/CourseEnrollmentApp/CourseEnrollmentApp.Domain/obj/Debug/net8.0/CourseEnrollmentApp.Domain.dll
+/Users/admin/Documents/CodingProjects/CourseEnrollmentApp/CourseEnrollmentApp.Domain/obj/Debug/net8.0/refint/CourseEnrollmentApp.Domain.dll
+/Users/admin/Documents/CodingProjects/CourseEnrollmentApp/CourseEnrollmentApp.Domain/obj/Debug/net8.0/CourseEnrollmentApp.Domain.pdb
+/Users/admin/Documents/CodingProjects/CourseEnrollmentApp/CourseEnrollmentApp.Domain/obj/Debug/net8.0/ref/CourseEnrollmentApp.Domain.dll

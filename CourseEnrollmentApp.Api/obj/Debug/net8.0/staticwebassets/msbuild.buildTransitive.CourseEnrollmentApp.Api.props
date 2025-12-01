@@ -1,0 +1,3 @@
+﻿<Project>
+  <Import Project="../buildMultiTargeting/CourseEnrollmentApp.Api.props" />
+</Project>

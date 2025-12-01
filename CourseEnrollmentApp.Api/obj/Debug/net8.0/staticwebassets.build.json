@@ -1,0 +1,11 @@
+{
+  "Version": 1,
+  "Hash": "gNPuE5+CPso9aAMgYJqXMs/VPT+rIG57HzXSiODlLY0=",
+  "Source": "CourseEnrollmentApp.Api",
+  "BasePath": "_content/CourseEnrollmentApp.Api",
+  "Mode": "Default",
+  "ManifestType": "Build",
+  "ReferencedProjectsConfiguration": [],
+  "DiscoveryPatterns": [],
+  "Assets": []
+}

@@ -1,0 +1,46 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.0.31903.59
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CourseEnrollmentApp.Domain", "CourseEnrollmentApp.Domain\CourseEnrollmentApp.Domain.csproj", "{3C2B9EA7-A732-46A1-B2DA-2FBF4CCE58DE}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CourseEnrollmentApp.Application", "CourseEnrollmentApp.Application\CourseEnrollmentApp.Application.csproj", "{13FB52AA-44F8-4B73-B24F-23C0B80D5ABE}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CourseEnrollmentApp.Infrastructure", "CourseEnrollmentApp.Infrastructure\CourseEnrollmentApp.Infrastructure.csproj", "{374C5BE8-9D9B-4961-9FB0-15576B47FBD1}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CourseEnrollmentApp.Api", "CourseEnrollmentApp.Api\CourseEnrollmentApp.Api.csproj", "{59C6D203-1361-429E-896B-6BE915739872}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CourseEnrollmentApp.Client", "CourseEnrollmentApp.Client\CourseEnrollmentApp.Client.csproj", "{4F3D8917-6FDC-40EE-9E48-6C2D1579DC4C}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{3C2B9EA7-A732-46A1-B2DA-2FBF4CCE58DE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3C2B9EA7-A732-46A1-B2DA-2FBF4CCE58DE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3C2B9EA7-A732-46A1-B2DA-2FBF4CCE58DE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3C2B9EA7-A732-46A1-B2DA-2FBF4CCE58DE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{13FB52AA-44F8-4B73-B24F-23C0B80D5ABE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{13FB52AA-44F8-4B73-B24F-23C0B80D5ABE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{13FB52AA-44F8-4B73-B24F-23C0B80D5ABE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{13FB52AA-44F8-4B73-B24F-23C0B80D5ABE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{374C5BE8-9D9B-4961-9FB0-15576B47FBD1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{374C5BE8-9D9B-4961-9FB0-15576B47FBD1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{374C5BE8-9D9B-4961-9FB0-15576B47FBD1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{374C5BE8-9D9B-4961-9FB0-15576B47FBD1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{59C6D203-1361-429E-896B-6BE915739872}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{59C6D203-1361-429E-896B-6BE915739872}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{59C6D203-1361-429E-896B-6BE915739872}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{59C6D203-1361-429E-896B-6BE915739872}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4F3D8917-6FDC-40EE-9E48-6C2D1579DC4C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4F3D8917-6FDC-40EE-9E48-6C2D1579DC4C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4F3D8917-6FDC-40EE-9E48-6C2D1579DC4C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4F3D8917-6FDC-40EE-9E48-6C2D1579DC4C}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+EndGlobal

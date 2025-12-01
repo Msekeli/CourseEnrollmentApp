@@ -1,0 +1,15 @@
+/Users/admin/Documents/CodingProjects/CourseEnrollmentApp/CourseEnrollmentApp.Application/bin/Debug/net8.0/CourseEnrollmentApp.Application.deps.json
+/Users/admin/Documents/CodingProjects/CourseEnrollmentApp/CourseEnrollmentApp.Application/bin/Debug/net8.0/CourseEnrollmentApp.Application.dll
+/Users/admin/Documents/CodingProjects/CourseEnrollmentApp/CourseEnrollmentApp.Application/bin/Debug/net8.0/CourseEnrollmentApp.Application.pdb
+/Users/admin/Documents/CodingProjects/CourseEnrollmentApp/CourseEnrollmentApp.Application/bin/Debug/net8.0/CourseEnrollmentApp.Domain.dll
+/Users/admin/Documents/CodingProjects/CourseEnrollmentApp/CourseEnrollmentApp.Application/bin/Debug/net8.0/CourseEnrollmentApp.Domain.pdb
+/Users/admin/Documents/CodingProjects/CourseEnrollmentApp/CourseEnrollmentApp.Application/obj/Debug/net8.0/CourseEnrollmentApp.Application.csproj.AssemblyReference.cache
+/Users/admin/Documents/CodingProjects/CourseEnrollmentApp/CourseEnrollmentApp.Application/obj/Debug/net8.0/CourseEnrollmentApp.Application.GeneratedMSBuildEditorConfig.editorconfig
+/Users/admin/Documents/CodingProjects/CourseEnrollmentApp/CourseEnrollmentApp.Application/obj/Debug/net8.0/CourseEnrollmentApp.Application.AssemblyInfoInputs.cache
+/Users/admin/Documents/CodingProjects/CourseEnrollmentApp/CourseEnrollmentApp.Application/obj/Debug/net8.0/CourseEnrollmentApp.Application.AssemblyInfo.cs
+/Users/admin/Documents/CodingProjects/CourseEnrollmentApp/CourseEnrollmentApp.Application/obj/Debug/net8.0/CourseEnrollmentApp.Application.csproj.CoreCompileInputs.cache
+/Users/admin/Documents/CodingProjects/CourseEnrollmentApp/CourseEnrollmentApp.Application/obj/Debug/net8.0/CourseEn.3FBDF87E.Up2Date
+/Users/admin/Documents/CodingProjects/CourseEnrollmentApp/CourseEnrollmentApp.Application/obj/Debug/net8.0/CourseEnrollmentApp.Application.dll
+/Users/admin/Documents/CodingProjects/CourseEnrollmentApp/CourseEnrollmentApp.Application/obj/Debug/net8.0/refint/CourseEnrollmentApp.Application.dll
+/Users/admin/Documents/CodingProjects/CourseEnrollmentApp/CourseEnrollmentApp.Application/obj/Debug/net8.0/CourseEnrollmentApp.Application.pdb
+/Users/admin/Documents/CodingProjects/CourseEnrollmentApp/CourseEnrollmentApp.Application/obj/Debug/net8.0/ref/CourseEnrollmentApp.Application.dll
