@@ -1,0 +1,77 @@
+@page "/login"
+@layout PublicLayout
+@using CourseEnrollmentApp.Application.DTOs
+@using CourseEnrollmentApp.Client.Services
+@using MudBlazor
+@inject NavigationManager Nav
+@inject AuthApiService AuthService
+@inject ISnackbar Snackbar
+@inject TokenService TokenService
+
+<div class="premium-auth-bg">
+
+    <div class="premium-auth-panel animate-fade-in">
+
+        <MudText Typo="Typo.h4" Class="auth-title">Login</MudText>
+
+        <MudForm @ref="_form">
+
+            <MudTextField @bind-Value="_model.Email"
+                          Label="Email"
+                          Required="true"
+                          Margin="Margin.Dense"
+                          Type="Email" />
+
+            <MudTextField @bind-Value="_model.Password"
+                          Label="Password"
+                          Required="true"
+                          InputType="InputType.Password"
+                          Margin="Margin.Dense" />
+
+            <MudButton Variant="Variant.Filled"
+                       Color="Color.Primary"
+                       Class="auth-btn"
+                       OnClick="SubmitLogin"
+                       Disabled="_submitting"
+                       FullWidth="true">
+                @(_submitting ? "Logging in..." : "Login")
+            </MudButton>
+
+        </MudForm>
+
+        <MudText Align="Align.Center" Class="auth-footer">
+            Don't have an account?
+            <MudLink Href="/register">Register</MudLink>
+        </MudText>
+
+    </div>
+
+</div>
+
+@code {
+    private MudForm? _form;
+    private LoginDto _model = new();
+    private bool _submitting = false;
+
+    private async Task SubmitLogin()
+    {
+        await _form!.Validate();
+
+        if (!_form.IsValid)
+            return;
+
+        _submitting = true;
+
+        var token = await AuthService.LoginAsync(_model);
+
+        if (string.IsNullOrEmpty(token))
+        {
+            Snackbar.Add("Invalid email or password.", Severity.Error);
+            _submitting = false;
+            return;
+        }
+
+        await TokenService.SetTokenAsync(token);
+        Nav.NavigateTo("/available-courses", true);
+    }
+}

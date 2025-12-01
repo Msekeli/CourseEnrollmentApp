@@ -1,77 +1,81 @@
-.page {
-    position: relative;
+/* Full-screen premium background */
+.mainlayout-bg {
+    width: 100%;
+    min-height: 100vh;
+    background-image: url('https://images.unsplash.com/photo-1523240795612-9a054b0db644?auto=format&fit=crop&w=1600&q=80');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+
     display: flex;
     flex-direction: column;
+    overflow: hidden;
 }
 
-main {
-    flex: 1;
+/* Top AppBar styling */
+.mainlayout-appbar {
+    backdrop-filter: blur(8px);
+    background: rgba(25, 118, 210, 0.75); /* primary with transparency */
 }
 
-.sidebar {
-    background-image: linear-gradient(180deg, rgb(5, 39, 103) 0%, #3a0647 70%);
-}
-
-.top-row {
-    background-color: #f7f7f7;
-    border-bottom: 1px solid #d6d5d5;
-    justify-content: flex-end;
-    height: 3.5rem;
+/* Layout body */
+.mainlayout-body {
     display: flex;
-    align-items: center;
+    flex: 1;
+    padding: 20px;
+    gap: 20px;
 }
 
-    .top-row ::deep a, .top-row ::deep .btn-link {
-        white-space: nowrap;
-        margin-left: 1.5rem;
-        text-decoration: none;
-    }
+/* Glass sidebar */
+.mainlayout-sidebar {
+    width: 240px;
+    background: rgba(255, 255, 255, 0.18);
+    backdrop-filter: blur(12px);
+    padding: 20px;
+    border-radius: 20px;
+    box-shadow: 0 10px 40px rgba(0,0,0,0.3);
+}
 
-    .top-row ::deep a:hover, .top-row ::deep .btn-link:hover {
-        text-decoration: underline;
-    }
+/* Main content section */
+.mainlayout-content {
+    flex: 1;
+    background: rgba(255, 255, 255, 0.25);
+    backdrop-filter: blur(10px);
+    padding: 30px;
+    border-radius: 20px;
+    box-shadow: 0 10px 40px rgba(0,0,0,0.25);
+    overflow-y: auto;
+    min-height: calc(100vh - 64px - 40px);
+}
 
-    .top-row ::deep a:first-child {
-        overflow: hidden;
-        text-overflow: ellipsis;
-    }
+/* Typography enhancement */
+.mainlayout-content h1,
+.mainlayout-content h2,
+.mainlayout-content h3 {
+    color: #fff;
+}
 
-@media (max-width: 640.98px) {
-    .top-row {
-        justify-content: space-between;
-    }
+/* Premium transition */
+.animate-fade-in {
+    animation: fadeInUp 0.9s ease forwards;
+    opacity: 0;
+    transform: translateY(20px);
+}
 
-    .top-row ::deep a, .top-row ::deep .btn-link {
-        margin-left: 0;
+@keyframes fadeInUp {
+    to {
+        opacity: 1;
+        transform: translateY(0);
     }
 }
 
-@media (min-width: 641px) {
-    .page {
-        flex-direction: row;
+/* Mobile layout */
+@media (max-width: 768px) {
+    .mainlayout-body {
+        flex-direction: column;
     }
 
-    .sidebar {
-        width: 250px;
-        height: 100vh;
-        position: sticky;
-        top: 0;
-    }
-
-    .top-row {
-        position: sticky;
-        top: 0;
-        z-index: 1;
-    }
-
-    .top-row.auth ::deep a:first-child {
-        flex: 1;
-        text-align: right;
-        width: 0;
-    }
-
-    .top-row, article {
-        padding-left: 2rem !important;
-        padding-right: 1.5rem !important;
+    .mainlayout-sidebar {
+        width: 100%;
     }
 }

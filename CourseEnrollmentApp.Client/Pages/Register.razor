@@ -1,0 +1,81 @@
+@page "/register"
+@layout PublicLayout
+@using CourseEnrollmentApp.Application.DTOs
+@using CourseEnrollmentApp.Client.Services
+@using MudBlazor
+@inject NavigationManager Nav
+@inject AuthApiService AuthService
+@inject ISnackbar Snackbar
+
+<div class="premium-auth-bg">
+
+    <div class="premium-auth-panel animate-fade-in">
+
+        <MudText Typo="Typo.h4" Class="auth-title">Create Account</MudText>
+
+        <MudForm @ref="_form">
+
+            <MudTextField @bind-Value="_model.Name"
+                          Label="Full Name"
+                          Required="true"
+                          Margin="Margin.Dense" />
+
+            <MudTextField @bind-Value="_model.Email"
+                          Label="Email"
+                          Required="true"
+                          Margin="Margin.Dense"
+                          Type="Email" />
+
+            <MudTextField @bind-Value="_model.Password"
+                          Label="Password"
+                          Required="true"
+                          InputType="InputType.Password"
+                          Margin="Margin.Dense" />
+
+            <MudButton Variant="Variant.Filled"
+                       Color="Color.Primary"
+                       Class="auth-btn"
+                       OnClick="RegisterUser"
+                       Disabled="_submitting"
+                       FullWidth="true">
+                @(_submitting ? "Creating..." : "Register")
+            </MudButton>
+
+        </MudForm>
+
+        <MudText Align="Align.Center" Class="auth-footer">
+            Already have an account?
+            <MudLink Href="/login">Login</MudLink>
+        </MudText>
+
+    </div>
+
+</div>
+
+@code {
+    private MudForm? _form;
+    private RegisterDto _model = new();
+    private bool _submitting = false;
+
+    private async Task RegisterUser()
+    {
+        await _form!.Validate();
+
+        if (!_form.IsValid)
+            return;
+
+        _submitting = true;
+
+        var token = await AuthService.RegisterAsync(_model);
+
+        if (string.IsNullOrEmpty(token))
+        {
+            Snackbar.Add("Registration failed", Severity.Error);
+            _submitting = false;
+            return;
+        }
+
+        Snackbar.Add("Account created successfully!", Severity.Success);
+        Nav.NavigateTo("/login");
+    }
+}

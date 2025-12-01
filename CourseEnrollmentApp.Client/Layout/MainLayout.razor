@@ -1,16 +1,61 @@
 ﻿@inherits LayoutComponentBase
-<div class="page">
-    <div class="sidebar">
-        <NavMenu />
-    </div>
+@using MudBlazor
+@inject NavigationManager Nav
+@inject CourseEnrollmentApp.Client.Services.TokenService TokenService
 
-    <main>
-        <div class="top-row px-4">
-            <a href="https://learn.microsoft.com/aspnet/core/" target="_blank">About</a>
-        </div>
+<MudThemeProvider />
+<MudDialogProvider />
+<MudSnackbarProvider />
 
-        <article class="content px-4">
+<div class="mainlayout-bg">
+
+    <!-- Top Bar -->
+    <MudAppBar Color="Color.Primary" Elevation="2" Class="mainlayout-appbar">
+        <MudText Typo="Typo.h6" Class="ml-2">Course Enrollment</MudText>
+        <MudSpacer />
+
+        @if (TokenService.IsLoggedIn)
+        {
+            <MudMenu>
+                <ActivatorContent>
+                    <MudAvatar Color="Color.Secondary"
+                               Size="Size.Medium"
+                               Class="mr-2 cursor-pointer">
+                        @TokenService.Initials
+                    </MudAvatar>
+                </ActivatorContent>
+                <ChildContent>
+                    <MudMenuItem Disabled="true">@TokenService.UserEmail</MudMenuItem>
+                    <MudMenuItem OnClick="@(() => Nav.NavigateTo("/settings"))">Settings</MudMenuItem>
+                    <MudMenuItem OnClick="Logout">Logout</MudMenuItem>
+                </ChildContent>
+            </MudMenu>
+        }
+    </MudAppBar>
+
+    <!-- Glass Sidebar + Body -->
+    <div class="mainlayout-body">
+
+        <aside class="mainlayout-sidebar animate-fade-in">
+            <MudNavMenu>
+                <MudNavLink Href="/" Icon="@Icons.Material.Filled.Home">Home</MudNavLink>
+                <MudNavLink Href="/available-courses" Icon="@Icons.Material.Filled.List">Available Courses</MudNavLink>
+                <MudNavLink Href="/my-courses" Icon="@Icons.Material.Filled.School">My Courses</MudNavLink>
+                <MudNavLink Href="/settings" Icon="@Icons.Material.Filled.Settings">Settings</MudNavLink>
+            </MudNavMenu>
+        </aside>
+
+        <main class="mainlayout-content animate-fade-in">
             @Body
-        </article>
-    </main>
+        </main>
+
+    </div>
 </div>
+
+@code {
+    private async Task Logout()
+    {
+        TokenService.Logout();
+        Nav.NavigateTo("/login", true);
+    }
+}

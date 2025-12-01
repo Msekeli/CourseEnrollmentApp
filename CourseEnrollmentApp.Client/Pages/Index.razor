@@ -1,0 +1,42 @@
+@page "/"
+@layout PublicLayout
+@using MudBlazor
+@inject NavigationManager Nav
+
+<div class="premium-hero">
+
+    <div class="hero-overlay"></div>
+
+    <div class="hero-content animate-fade-in">
+
+        <MudText Typo="Typo.h2" Class="hero-title">
+            Shape Your Future
+        </MudText>
+
+        <MudText Typo="Typo.subtitle1" Class="hero-subtitle">
+            Discover courses designed to elevate your skills and unlock new opportunities.
+        </MudText>
+
+        <div class="hero-buttons">
+
+            <MudButton Variant="Variant.Filled"
+                       Color="Color.Primary"
+                       StartIcon="@Icons.Material.Filled.School"
+                       Class="hero-btn"
+                       OnClick="@(() => Nav.NavigateTo("/available-courses"))">
+                Browse Courses
+            </MudButton>
+
+            <MudButton Variant="Variant.Outlined"
+                       Color="Color.Secondary"
+                       StartIcon="@Icons.Material.Filled.PersonAdd"
+                       Class="hero-btn"
+                       OnClick="@(() => Nav.NavigateTo("/register"))">
+                Create Account
+            </MudButton>
+
+        </div>
+
+    </div>
+
+</div>

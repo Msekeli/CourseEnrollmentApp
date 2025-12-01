@@ -1,0 +1,11 @@
+.page-container {
+    max-width: 650px;
+    margin: 60px auto;
+    padding: 1.5rem;
+}
+
+.center-container {
+    display: flex;
+    justify-content: center;
+    margin-top: 60px;
+}
