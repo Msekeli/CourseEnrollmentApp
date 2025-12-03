@@ -1,0 +1,85 @@
+/* PAGE CONTAINER */
+.ac-container {
+    max-height: 85vh;
+    overflow-y: auto;
+    padding-right: 10px;
+}
+
+/* Title */
+.ac-title {
+    color: #222;
+    margin-bottom: 12px;
+}
+
+/* SEARCH BAR */
+.ac-search-wrapper {
+    width: 30%;
+    min-width: 240px;
+    margin-bottom: 18px;
+   
+}
+
+.ac-search input {
+    border-radius: 10px !important;
+    border: 1px solid #bfbfbf !important;
+    padding-left: 14px !important;
+    background: white !important;
+    height: 36px !important;
+    font-size: 0.9rem;
+}
+
+.ac-search .mud-input-adornment {
+    color: #6A0DAD !important;
+}
+
+/* GRID */
+.ac-grid {
+    margin-top: 6px;
+}
+
+/* Cards */
+.ac-card {
+    background: white !important;
+    border-radius: 12px !important;
+    overflow: hidden;
+    box-shadow: 0px 3px 12px rgba(0,0,0,0.06);
+    transition: 0.15s ease;
+    padding-bottom: 8px;
+}
+
+.ac-card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0px 6px 18px rgba(0,0,0,0.1);
+}
+
+/* Thumbnail — SMALLER */
+.ac-thumb {
+    width: 100%;
+    height: 110px;        /* smaller images */
+    object-fit: cover;
+}
+
+/* Card content */
+.ac-card-body {
+    padding: 10px 12px;
+}
+
+.ac-card-title {
+    color: #222;
+    font-size: 0.95rem;
+    margin-bottom: 2px;
+}
+
+/* Category text */
+.ac-card-category {
+    color: #6A0DAD;
+    margin-bottom: 8px;
+}
+
+/* View button */
+.ac-card-btn {
+    width: 100%;
+    border-radius: 8px !important;
+    font-size: 0.85rem;
+    padding: 4px 0 !important;
+}

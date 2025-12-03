@@ -1,77 +1,53 @@
 @page "/login"
 @layout PublicLayout
-@using CourseEnrollmentApp.Application.DTOs
-@using CourseEnrollmentApp.Client.Services
-@using MudBlazor
-@inject NavigationManager Nav
-@inject AuthApiService AuthService
-@inject ISnackbar Snackbar
-@inject TokenService TokenService
 
-<div class="premium-auth-bg">
+<div class="auth-bg">
 
-    <div class="premium-auth-panel animate-fade-in">
+    <div class="auth-panel fade-up">
 
-        <MudText Typo="Typo.h4" Class="auth-title">Login</MudText>
+        <h3 class="auth-title mb-3 text-white fw-bold">Login</h3>
 
-        <MudForm @ref="_form">
+        <form>
 
-            <MudTextField @bind-Value="_model.Email"
-                          Label="Email"
-                          Required="true"
-                          Margin="Margin.Dense"
-                          Type="Email" />
+            <!-- Email -->
+            <div class="mb-3">
+                <label class="form-label text-white">Email</label>
+                <div class="input-group">
+                    <span class="input-group-text bg-white border-0">
+                        <i class="bi bi-envelope"></i>
+                    </span>
+                    <input type="email"
+                           class="form-control auth-input"
+                           placeholder="email@example.com" />
+                </div>
+            </div>
 
-            <MudTextField @bind-Value="_model.Password"
-                          Label="Password"
-                          Required="true"
-                          InputType="InputType.Password"
-                          Margin="Margin.Dense" />
+            <!-- Password -->
+            <div class="mb-3">
+                <label class="form-label text-white">Password</label>
+                <div class="input-group">
+                    <span class="input-group-text bg-white border-0">
+                        <i class="bi bi-lock"></i>
+                    </span>
+                    <input type="password"
+                           class="form-control auth-input"
+                           placeholder="Your password" />
+                </div>
+            </div>
 
-            <MudButton Variant="Variant.Filled"
-                       Color="Color.Primary"
-                       Class="auth-btn"
-                       OnClick="SubmitLogin"
-                       Disabled="_submitting"
-                       FullWidth="true">
-                @(_submitting ? "Logging in..." : "Login")
-            </MudButton>
+            <!-- Login Button -->
+            <button class="btn btn-purple w-100 py-2 fw-bold mt-2">
+                <i class="bi bi-box-arrow-in-right me-1"></i>
+                Login
+            </button>
 
-        </MudForm>
+        </form>
 
-        <MudText Align="Align.Center" Class="auth-footer">
+        <p class="text-center text-white mt-3 small">
             Don't have an account?
-            <MudLink Href="/register">Register</MudLink>
-        </MudText>
+            <a href="/register" class="text-white fw-bold">Create Account</a>
+        </p>
 
     </div>
 
 </div>
-
-@code {
-    private MudForm? _form;
-    private LoginDto _model = new();
-    private bool _submitting = false;
-
-    private async Task SubmitLogin()
-    {
-        await _form!.Validate();
-
-        if (!_form.IsValid)
-            return;
-
-        _submitting = true;
-
-        var token = await AuthService.LoginAsync(_model);
-
-        if (string.IsNullOrEmpty(token))
-        {
-            Snackbar.Add("Invalid email or password.", Severity.Error);
-            _submitting = false;
-            return;
-        }
-
-        await TokenService.SetTokenAsync(token);
-        Nav.NavigateTo("/available-courses", true);
-    }
-}

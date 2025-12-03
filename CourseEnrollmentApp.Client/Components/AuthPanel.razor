@@ -1,0 +1,11 @@
+@namespace CourseEnrollmentApp.Client.Components
+
+<div class="auth-panel-wrapper fade-up">
+    <div class="auth-panel glass-card">
+        @ChildContent
+    </div>
+</div>
+
+@code {
+    [Parameter] public RenderFragment? ChildContent { get; set; }
+}

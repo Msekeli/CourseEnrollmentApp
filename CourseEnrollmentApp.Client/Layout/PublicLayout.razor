@@ -1,29 +1,29 @@
 @inherits LayoutComponentBase
-@using MudBlazor
+@inject NavigationManager Nav
 
-<MudThemeProvider />
-<MudDialogProvider />
-<MudSnackbarProvider />
+<div class="public-layout">
 
-<MudAppBar Color="Color.Primary" Elevation="2">
-    <MudText Typo="Typo.h6" Class="ml-2">Course Enrollment</MudText>
-    <MudSpacer />
-    <MudButton Variant="Variant.Text" Color="Color.Inherit" Href="/login">
-        Login
-    </MudButton>
-</MudAppBar>
+    <!-- TOP BAR -->
+    <header class="public-topbar">
+        <span class="public-brand">Makufundwe</span>
 
-<div class="premium-layout-body">
-    @Body
+        <a class="public-login" @onclick="GoToLogin">
+            <i class="bi bi-box-arrow-in-right"></i> Login
+        </a>
+    </header>
+
+    <!-- PAGE CONTENT (flex-grow) -->
+    <main class="public-content">
+        @Body
+    </main>
+
+    <!-- FOOTER -->
+    <footer class="public-footer">
+        © 2025 Msekeli Mkwibiso — All Rights Reserved
+    </footer>
+
 </div>
 
-<style>
-    .premium-layout-body {
-        width: 100%;
-        min-height: calc(100vh - 64px); /* 64px = AppBar height */
-        margin: 0;
-        padding: 0;
-        position: relative;
-        overflow: hidden;
-    }
-</style>
+@code {
+    void GoToLogin() => Nav.NavigateTo("/login");
+}

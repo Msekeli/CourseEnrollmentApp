@@ -1,6 +1,6 @@
-.premium-auth-bg {
+.auth-bg {
     width: 100%;
-    height: calc(100vh - 64px);
+    height: calc(100vh - 64px); /* fills under PublicLayout top bar */
     background-image: url('https://images.unsplash.com/photo-1523240795612-9a054b0db644?auto=format&fit=crop&w=1600&q=80');
     background-size: cover;
     background-position: center;
@@ -13,41 +13,43 @@
     position: relative;
 }
 
-.premium-auth-panel {
-    background: rgba(255, 255, 255, 0.18);
-    backdrop-filter: blur(12px);
-    padding: 50px 40px;
-    border-radius: 20px;
-    max-width: 450px;
+/* Glass panel */
+.auth-panel {
+    background: rgba(255, 255, 255, 0.15);
+    backdrop-filter: blur(14px);
+    padding: 45px 38px;
+    border-radius: 18px;
     width: 90%;
+    max-width: 430px;
+    box-shadow: 0 8px 35px rgba(0,0,0,0.35);
     color: white;
-    box-shadow: 0 10px 40px rgba(0,0,0,0.35);
+}
+
+/* Inputs */
+.auth-input {
+    background: rgba(255, 255, 255, 0.65);
+    border: none;
+    border-radius: 0 8px 8px 0;
+    padding-left: 12px;
+    font-size: 0.95rem;
+}
+
+.input-group-text {
+    border-radius: 8px 0 0 8px !important;
 }
 
 .auth-title {
-    margin-bottom: 20px;
-    font-weight: 600;
+    font-weight: 700;
 }
 
-.auth-btn {
-    margin-top: 20px;
-    padding: 14px;
-    border-radius: 12px;
-}
-
-.auth-footer {
-    margin-top: 18px;
-    opacity: 0.9;
-}
-
-/* Fade-in animation */
-.animate-fade-in {
-    animation: fadeInUp 0.9s ease forwards;
+/* Fade-up animation */
+.fade-up {
+    animation: fadeUp 0.9s ease forwards;
     opacity: 0;
     transform: translateY(20px);
 }
 
-@keyframes fadeInUp {
+@keyframes fadeUp {
     to {
         opacity: 1;
         transform: translateY(0);

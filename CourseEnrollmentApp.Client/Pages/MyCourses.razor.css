@@ -1,0 +1,106 @@
+/* MAIN WRAPPER */
+.mc-container {
+    max-height: 85vh;
+    overflow-y: auto;
+    padding-right: 10px;
+}
+
+/* TITLE */
+.mc-title {
+    color: #222;
+    margin-bottom: 10px;
+}
+
+/* SEARCH BAR */
+.mc-search-wrapper {
+    width: 30%;
+    min-width: 240px;
+    margin-bottom: 20px;
+}
+
+.mc-search input {
+    border-radius: 10px !important;
+    border: 1px solid #bfbfbf !important;
+    height: 36px !important;
+    padding-left: 14px !important;
+    background: #ffffff !important;
+}
+
+.mc-search .mud-input-adornment {
+    color: #6A0DAD !important;
+}
+
+/* GRID */
+.mc-grid {
+    margin-top: 4px;
+}
+
+/* CARD */
+.mc-card {
+    border-radius: 14px !important;
+    overflow: hidden;
+
+    /* ⭐ Purple glow */
+    box-shadow: 0px 4px 14px rgba(106, 13, 173, 0.18);
+
+    background: #ffffff;
+    transition: all 0.2s ease;
+}
+
+.mc-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0px 6px 18px rgba(106, 13, 173, 0.25); /* deeper purple glow */
+}
+
+/* IMAGE */
+.mc-thumb-wrapper {
+    width: 100%;
+    height: 90px;      /* small height */
+    overflow: hidden;
+}
+
+.mc-thumb {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+/* CARD BODY */
+.mc-card-body {
+    padding: 14px;
+}
+
+.mc-card-title {
+    color: #222;
+    margin-bottom: 4px;
+}
+
+.mc-card-category {
+    color: #6A0DAD;
+    margin-bottom: 8px;
+}
+
+/* PROGRESS */
+.mc-progress {
+    height: 6px !important;
+    border-radius: 4px !important;
+    margin-bottom: 10px;
+}
+
+/* META */
+.mc-meta-row {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 12px;
+}
+
+.mc-meta-text {
+    color: #555;
+}
+
+/* BUTTONS */
+.mc-buttons {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}

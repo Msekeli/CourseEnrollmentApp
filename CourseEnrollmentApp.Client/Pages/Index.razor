@@ -1,42 +1,38 @@
 @page "/"
 @layout PublicLayout
-@using MudBlazor
 @inject NavigationManager Nav
 
 <div class="premium-hero">
 
     <div class="hero-overlay"></div>
 
-    <div class="hero-content animate-fade-in">
+    <div class="hero-content fade-up">
 
-        <MudText Typo="Typo.h2" Class="hero-title">
-            Shape Your Future
-        </MudText>
+        <h1 class="hero-title">Shape Your Future</h1>
 
-        <MudText Typo="Typo.subtitle1" Class="hero-subtitle">
+        <p class="hero-subtitle">
             Discover courses designed to elevate your skills and unlock new opportunities.
-        </MudText>
+        </p>
 
         <div class="hero-buttons">
 
-            <MudButton Variant="Variant.Filled"
-                       Color="Color.Primary"
-                       StartIcon="@Icons.Material.Filled.School"
-                       Class="hero-btn"
-                       OnClick="@(() => Nav.NavigateTo("/available-courses"))">
-                Browse Courses
-            </MudButton>
+            <button class="btn btn-purple hero-btn"
+                    @onclick="GoToAvailableCourses">
+                <i class="bi bi-book"></i> Browse Courses
+            </button>
 
-            <MudButton Variant="Variant.Outlined"
-                       Color="Color.Secondary"
-                       StartIcon="@Icons.Material.Filled.PersonAdd"
-                       Class="hero-btn"
-                       OnClick="@(() => Nav.NavigateTo("/register"))">
-                Create Account
-            </MudButton>
+            <button class="btn btn-purple hero-btn"
+                    @onclick="GoToRegister">
+                <i class="bi bi-person-plus"></i> Create Account
+            </button>
 
         </div>
 
     </div>
 
 </div>
+
+@code {
+    void GoToAvailableCourses() => Nav.NavigateTo("/available-courses");
+    void GoToRegister() => Nav.NavigateTo("/register");
+}

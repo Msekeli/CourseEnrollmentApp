@@ -1,21 +1,20 @@
-/* Full screen background with gradient overlay */
+/* Full-screen background */
 .premium-hero {
     width: 100%;
-    height: calc(100vh - 64px); /* 64px = AppBar */
+    height: 100vh;
+
     background-image: url('https://images.unsplash.com/photo-1523240795612-9a054b0db644?auto=format&fit=crop&w=1600&q=80');
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
 
+    position: relative;
     display: flex;
     justify-content: center;
     align-items: center;
-
-    position: relative;
-    overflow: hidden;
 }
 
-/* Dark gradient to create premium contrast */
+/* Dark premium overlay */
 .hero-overlay {
     position: absolute;
     inset: 0;
@@ -40,15 +39,16 @@
     box-shadow: 0 8px 32px rgba(0,0,0,0.2);
 }
 
-/* Title + subtitle */
+/* Typography */
 .hero-title {
-    margin-bottom: 12px;
     font-weight: 600;
+    margin-bottom: 12px;
+    font-size: 2rem;
 }
 
 .hero-subtitle {
-    margin-bottom: 30px;
     opacity: 0.9;
+    margin-bottom: 30px;
 }
 
 /* Buttons */
@@ -64,7 +64,7 @@
     font-size: 1rem;
 }
 
-/* Desktop layout */
+/* Desktop buttons side-by-side */
 @media (min-width: 768px) {
     .hero-buttons {
         flex-direction: row;
@@ -73,19 +73,5 @@
 
     .hero-btn {
         min-width: 180px;
-    }
-}
-
-/* Premium fade-in animation */
-.animate-fade-in {
-    animation: fadeInUp 0.9s ease forwards;
-    opacity: 0;
-    transform: translateY(20px);
-}
-
-@keyframes fadeInUp {
-    to {
-        opacity: 1;
-        transform: translateY(0);
     }
 }

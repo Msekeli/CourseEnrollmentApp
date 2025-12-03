@@ -1,81 +1,66 @@
 @page "/register"
 @layout PublicLayout
-@using CourseEnrollmentApp.Application.DTOs
-@using CourseEnrollmentApp.Client.Services
-@using MudBlazor
-@inject NavigationManager Nav
-@inject AuthApiService AuthService
-@inject ISnackbar Snackbar
 
-<div class="premium-auth-bg">
+<div class="auth-bg">
 
-    <div class="premium-auth-panel animate-fade-in">
+    <div class="auth-panel fade-up">
 
-        <MudText Typo="Typo.h4" Class="auth-title">Create Account</MudText>
+        <h3 class="auth-title mb-3 text-white fw-bold">Create Account</h3>
 
-        <MudForm @ref="_form">
+        <form>
 
-            <MudTextField @bind-Value="_model.Name"
-                          Label="Full Name"
-                          Required="true"
-                          Margin="Margin.Dense" />
+            <!-- Full Name -->
+            <div class="mb-3">
+                <label class="form-label text-white">Full Name</label>
+                <div class="input-group">
+                    <span class="input-group-text bg-white border-0">
+                        <i class="bi bi-person"></i>
+                    </span>
+                    <input type="text"
+                           class="form-control auth-input"
+                           placeholder="Your name" />
+                </div>
+            </div>
 
-            <MudTextField @bind-Value="_model.Email"
-                          Label="Email"
-                          Required="true"
-                          Margin="Margin.Dense"
-                          Type="Email" />
+            <!-- Email -->
+            <div class="mb-3">
+                <label class="form-label text-white">Email</label>
+                <div class="input-group">
+                    <span class="input-group-text bg-white border-0">
+                        <i class="bi bi-envelope"></i>
+                    </span>
+                    <input type="email"
+                           class="form-control auth-input"
+                           placeholder="email@example.com" />
+                </div>
+            </div>
 
-            <MudTextField @bind-Value="_model.Password"
-                          Label="Password"
-                          Required="true"
-                          InputType="InputType.Password"
-                          Margin="Margin.Dense" />
+            <!-- Password -->
+            <div class="mb-3">
+                <label class="form-label text-white">Password</label>
+                <div class="input-group">
+                    <span class="input-group-text bg-white border-0">
+                        <i class="bi bi-lock"></i>
+                    </span>
+                    <input type="password"
+                           class="form-control auth-input"
+                           placeholder="Your password" />
+                </div>
+            </div>
 
-            <MudButton Variant="Variant.Filled"
-                       Color="Color.Primary"
-                       Class="auth-btn"
-                       OnClick="RegisterUser"
-                       Disabled="_submitting"
-                       FullWidth="true">
-                @(_submitting ? "Creating..." : "Register")
-            </MudButton>
+            <!-- Register Button -->
+            <button class="btn btn-purple w-100 py-2 fw-bold mt-2">
+                <i class="bi bi-person-plus me-1"></i>
+                Create Account
+            </button>
 
-        </MudForm>
+        </form>
 
-        <MudText Align="Align.Center" Class="auth-footer">
+        <p class="text-center text-white mt-3 small">
             Already have an account?
-            <MudLink Href="/login">Login</MudLink>
-        </MudText>
+            <a href="/login" class="text-white fw-bold">Login</a>
+        </p>
 
     </div>
 
 </div>
-
-@code {
-    private MudForm? _form;
-    private RegisterDto _model = new();
-    private bool _submitting = false;
-
-    private async Task RegisterUser()
-    {
-        await _form!.Validate();
-
-        if (!_form.IsValid)
-            return;
-
-        _submitting = true;
-
-        var token = await AuthService.RegisterAsync(_model);
-
-        if (string.IsNullOrEmpty(token))
-        {
-            Snackbar.Add("Registration failed", Severity.Error);
-            _submitting = false;
-            return;
-        }
-
-        Snackbar.Add("Account created successfully!", Severity.Success);
-        Nav.NavigateTo("/login");
-    }
-}

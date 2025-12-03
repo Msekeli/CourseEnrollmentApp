@@ -1,0 +1,36 @@
+.home-container {
+    padding-bottom: 40px;
+}
+
+/* Section wrapper */
+.section-block {
+    padding: 18px;
+    background: white;
+    border-radius: 14px;
+    box-shadow: 0 3px 12px rgba(106, 13, 173, 0.08);
+}
+
+/* Purple section title */
+.section-title {
+    font-weight: 700;
+    color: var(--purple);
+}
+
+/* Tiny link on the right */
+.section-link {
+    font-size: 0.85rem;
+    text-decoration: none;
+    color: var(--purple);
+    font-weight: 600;
+}
+
+.section-link:hover {
+    text-decoration: underline;
+}
+
+/* Responsive spacing adjustments */
+@media (max-width: 576px) {
+    .section-block {
+        padding: 14px;
+    }
+}

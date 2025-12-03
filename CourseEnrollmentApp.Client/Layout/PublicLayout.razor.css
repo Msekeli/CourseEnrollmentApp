@@ -1,11 +1,65 @@
-.page-container {
-    max-width: 650px;
-    margin: 60px auto;
-    padding: 1.5rem;
+/* Entire page uses flex column and fits EXACTLY 100vh */
+.public-layout {
+    height: 100vh;
+    width: auto;
+    display: flex;
+    flex-direction: column;
+
+    background: linear-gradient(180deg, #F7F2FF, #FFFFFF);
+    overflow: hidden; /* ensures perfect containment */
 }
 
-.center-container {
+/* ---------------- TOP BAR ---------------- */
+.public-topbar {
+    height: 62px;
+    width: 100%;
+    padding: 0 24px;
+
+    background: var(--purple);
+    backdrop-filter: blur(10px);
+    border-bottom: 1px solid rgba(106, 13, 173, 0.25);
+
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.public-brand {
+    font-size: 1.35rem;
+    font-weight: 700;
+    color: white;
+    text-shadow: 0 0 6px rgba(0,0,0,0.35);
+}
+
+/* Login link */
+.public-login {
+    color: white;
+    font-weight: 500;
+    font-size: 0.95rem;
+    cursor: pointer;
+    transition: 0.2s ease;
+}
+.public-login:hover {
+    color: #EBD4FF;
+}
+
+/* ---------------- CONTENT AREA ---------------- */
+.public-content {
+    flex: 1; /* This makes content fill all remaining space */
+    overflow-y: auto;
+    position: relative;
+    z-index: 1;
+}
+
+/* ---------------- FOOTER ---------------- */
+.public-footer {
+    height: 60px;
+    background: var(--purple);
+    color: white;
+    text-align: center;
+    font-size: 0.95rem;
+
     display: flex;
     justify-content: center;
-    margin-top: 60px;
+    align-items: center;
 }

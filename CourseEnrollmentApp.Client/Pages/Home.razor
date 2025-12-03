@@ -1,0 +1,99 @@
+@page "/home"
+@attribute [Authorize]
+@layout MainLayout
+@inject NavigationManager Navigation
+
+@using CourseEnrollmentApp.Client.Components
+
+<!-- Page Heading -->
+<PageHeading Text="Welcome back!" />
+
+<!-- Search -->
+<SearchBar @bind-Value="_search"
+           Placeholder="Search your learning..." />
+
+<div class="container-fluid mt-4 home-container">
+
+    <!-- IN PROGRESS SECTION -->
+    <div class="section-block mb-4">
+        <div class="d-flex justify-content-between align-items-center mb-2">
+            <h5 class="section-title">In Progress</h5>
+            <a class="section-link" href="#">See all</a>
+        </div>
+
+        <div class="row g-4">
+            @foreach (var c in _inProgress.Where(MatchesSearch))
+            {
+                <div class="col-12 col-sm-6 col-lg-4">
+                    <CourseCard Title="@c.Title"
+                                Thumbnail="@c.Thumbnail"
+                                Progress="@c.Progress"
+                                TimeLeft="@c.TimeLeft"
+                                ShowProgress="true"
+                                OnClick="() => GoToCourse(c.Id)" />
+                </div>
+            }
+        </div>
+    </div>
+
+    <!-- SAVED SECTION -->
+    <div class="section-block">
+        <div class="d-flex justify-content-between align-items-center mb-2">
+            <h5 class="section-title">Saved</h5>
+            <a class="section-link" href="#">See all</a>
+        </div>
+
+        <div class="row g-4">
+            @foreach (var c in _saved.Where(MatchesSearch))
+            {
+                <div class="col-12 col-sm-6 col-lg-4">
+                    <CourseCard Title="@c.Title"
+                                Thumbnail="@c.Thumbnail"
+                                Category="@c.Category"
+                                OnClick="() => GoToCourse(c.Id)" />
+                </div>
+            }
+        </div>
+    </div>
+
+</div>
+
+@code {
+    private string _search = "";
+
+    private bool MatchesSearch(HomeCourse c) =>
+        string.IsNullOrWhiteSpace(_search)
+        || c.Title.Contains(_search, StringComparison.OrdinalIgnoreCase)
+        || c.Category.Contains(_search, StringComparison.OrdinalIgnoreCase);
+
+    void GoToCourse(int id)
+    {
+        Navigation.NavigateTo($"/course/{id}");
+    }
+
+    public class HomeCourse
+    {
+        public int Id { get; set; }
+        public string Title { get; set; } = "";
+        public string Thumbnail { get; set; } = "";
+        public string TimeLeft { get; set; } = "";
+        public string Category { get; set; } = "";
+        public int Progress { get; set; }
+    }
+
+    private List<HomeCourse> _inProgress = new()
+    {
+        new HomeCourse { Id=1, Title="Mastering C#", Thumbnail="https://images.unsplash.com/photo-1551033406-611cf9a28f67?q=80&w=600", Progress=40, TimeLeft="2h left", Category="Programming" },
+        new HomeCourse { Id=2, Title="Learning SQL", Thumbnail="https://images.unsplash.com/photo-1509223197845-458d87318791?q=80&w=600", Progress=70, TimeLeft="1h left", Category="Database" },
+        new HomeCourse { Id=3, Title="Git Fundamentals", Thumbnail="https://images.unsplash.com/photo-1531482615713-2afd69097998?q=80&w=600", Progress=15, TimeLeft="4h left", Category="Tools" }
+    };
+
+    private List<HomeCourse> _saved = new()
+    {
+        new HomeCourse { Id=4, Title="API Design Basics", Thumbnail="https://images.unsplash.com/photo-1581091012184-5c9af70e14b6?q=80&w=600", Category="Backend" },
+        new HomeCourse { Id=5, Title="UI/UX Essentials", Thumbnail="https://images.unsplash.com/photo-1557093794-8b14cd63a7a0?q=80&w=600", Category="Design" },
+        new HomeCourse { Id=6, Title="JavaScript 101", Thumbnail="https://images.unsplash.com/photo-1515879218367-8466d910aaa4?q=80&w=600", Category="Frontend" },
+        new HomeCourse { Id=7, Title="Docker Complete", Thumbnail="https://images.unsplash.com/photo-1605902711622-cfb43c44367e?q=80&w=600", Category="DevOps" },
+        new HomeCourse { Id=8, Title="Azure Fundamentals", Thumbnail="https://images.unsplash.com/photo-1521791055366-0d553872125f?q=80&w=600", Category="Cloud" }
+    };
+}

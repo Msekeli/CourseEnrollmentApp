@@ -1,61 +1,59 @@
 ﻿@inherits LayoutComponentBase
-@using MudBlazor
-@inject NavigationManager Nav
-@inject CourseEnrollmentApp.Client.Services.TokenService TokenService
 
-<MudThemeProvider />
-<MudDialogProvider />
-<MudSnackbarProvider />
+<nav class="topbar shadow-sm">
+    <div class="d-flex align-items-center gap-3">
+        <button class="btn btn-link text-white d-lg-none" @onclick="ToggleSidebar">
+            <i class="bi bi-list fs-3"></i>
+        </button>
 
-<div class="mainlayout-bg">
-
-    <!-- Top Bar -->
-    <MudAppBar Color="Color.Primary" Elevation="2" Class="mainlayout-appbar">
-        <MudText Typo="Typo.h6" Class="ml-2">Course Enrollment</MudText>
-        <MudSpacer />
-
-        @if (TokenService.IsLoggedIn)
-        {
-            <MudMenu>
-                <ActivatorContent>
-                    <MudAvatar Color="Color.Secondary"
-                               Size="Size.Medium"
-                               Class="mr-2 cursor-pointer">
-                        @TokenService.Initials
-                    </MudAvatar>
-                </ActivatorContent>
-                <ChildContent>
-                    <MudMenuItem Disabled="true">@TokenService.UserEmail</MudMenuItem>
-                    <MudMenuItem OnClick="@(() => Nav.NavigateTo("/settings"))">Settings</MudMenuItem>
-                    <MudMenuItem OnClick="Logout">Logout</MudMenuItem>
-                </ChildContent>
-            </MudMenu>
-        }
-    </MudAppBar>
-
-    <!-- Glass Sidebar + Body -->
-    <div class="mainlayout-body">
-
-        <aside class="mainlayout-sidebar animate-fade-in">
-            <MudNavMenu>
-                <MudNavLink Href="/" Icon="@Icons.Material.Filled.Home">Home</MudNavLink>
-                <MudNavLink Href="/available-courses" Icon="@Icons.Material.Filled.List">Available Courses</MudNavLink>
-                <MudNavLink Href="/my-courses" Icon="@Icons.Material.Filled.School">My Courses</MudNavLink>
-                <MudNavLink Href="/settings" Icon="@Icons.Material.Filled.Settings">Settings</MudNavLink>
-            </MudNavMenu>
-        </aside>
-
-        <main class="mainlayout-content animate-fade-in">
-            @Body
-        </main>
-
+        <span class="logo-text">Makufundwe</span>
     </div>
+
+    <div class="d-flex align-items-center gap-3">
+        <i class="bi bi-bell text-white fs-5"></i>
+
+        <div class="profile-circle">
+            @UserInitials
+        </div>
+    </div>
+</nav>
+
+<div class="layout-wrapper">
+
+    <!-- SIDEBAR -->
+    <aside class="sidebar @(sidebarOpen ? "open" : "")">
+        <nav class="sidebar-nav">
+
+            <p class="side-label">Dashboard</p>
+            <a class="side-link" href="/home">
+                <i class="bi bi-house-door"></i> Home
+            </a>
+
+            <p class="side-label">Learn</p>
+            <a class="side-link" href="/available-courses">
+                <i class="bi bi-collection-play"></i> Available Courses
+            </a>
+            <a class="side-link" href="/my-courses">
+                <i class="bi bi-journal-bookmark"></i> My Courses
+            </a>
+        </nav>
+    </aside>
+
+    <!-- CONTENT -->
+    <main class="content-area">
+        @Body
+    </main>
+
 </div>
 
 @code {
-    private async Task Logout()
+    private bool sidebarOpen = false;
+
+    private void ToggleSidebar()
     {
-        TokenService.Logout();
-        Nav.NavigateTo("/login", true);
+        sidebarOpen = !sidebarOpen;
     }
+
+    // Placeholder initials (replace later with real user)
+    private string UserInitials => "MM";
 }
