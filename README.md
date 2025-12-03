@@ -18,11 +18,10 @@ A Blazor WebAssembly application with an ASP.NET Web API backend using **Clean A
 
 ## Run
 
-### Backend
 ```bash
 cd CourseEnrollmentApp.Api
 dotnet watch run
 ### Frontend
-```bash
-cd CourseEnrollmentApp.client
+cd CourseEnrollmentApp.Client
 dotnet watch run
+
