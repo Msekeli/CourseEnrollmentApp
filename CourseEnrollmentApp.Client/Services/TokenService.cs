@@ -20,9 +20,7 @@ public class TokenService
     public string Initials { get; private set; } = "";
     public int UserId { get; private set; }
 
-    // ------------------------------
     // STORE TOKEN + PARSE CLAIMS
-    // ------------------------------
     public async Task SetTokenAsync(string token)
     {
         _token = token;
@@ -31,9 +29,7 @@ public class TokenService
         ParseToken(token);
     }
 
-    // ------------------------------
     // LOAD TOKEN FROM STORAGE
-    // ------------------------------
     public async Task LoadTokenAsync()
     {
         _token = await _js.InvokeAsync<string>("localStorage.getItem", "authToken");
@@ -55,14 +51,10 @@ public class TokenService
         await _js.InvokeVoidAsync("localStorage.removeItem", "authToken");
     }
 
-    // ------------------------------
     // GET TOKEN
-    // ------------------------------
     public string? GetToken() => _token;
-
-    // ------------------------------
+   
     // PARSE CLAIMS FROM JWT
-    // ------------------------------
     private void ParseToken(string token)
     {
         var handler = new JwtSecurityTokenHandler();

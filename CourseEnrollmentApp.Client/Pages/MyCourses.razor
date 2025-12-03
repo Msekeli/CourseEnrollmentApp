@@ -1,75 +1,89 @@
 @page "/my-courses"
 @attribute [Authorize]
 @layout MainLayout
+
+@inject MyCoursesService MyCoursesService
+@inject ToastService Toasts
 @inject NavigationManager Navigation
-@using CourseEnrollmentApp.Client.Components
 
 <PageHeading Text="My Courses" />
 
-<SearchBar @bind-Value="_search" Placeholder="Search your courses..." />
+<div class="mc-container">
 
-<div class="container-fluid mt-4">
-
-    <div class="row g-3">
-        @foreach (var c in _myCourses.Where(MatchesSearch))
-        {
-            <div class="col-12 col-sm-6 col-lg-4">
-
-                <CourseCard Title="@c.Title"
-                            Thumbnail="@c.Thumbnail"
-                            Category="@c.Category"
-
-                            ShowProgress="true"
-                            Progress="@c.Progress"
-                            TimeLeft="@c.TimeLeft"
-
-                            ShowPrimaryAction="true"
-                            PrimaryText="Start Learning"
-                            OnPrimary="() => ContinueCourse(c.Id)"
-
-                            ShowSecondaryAction="true"
-                            SecondaryText="Remove"
-                            OnSecondary="() => RemoveCourse(c.Id)" />
-            </div>
-        }
+    <!-- SEARCH BAR -->
+    <div class="mc-search-wrapper">
+        <SearchBar Value="@_search" ValueChanged="OnSearch" Placeholder="Search your courses..." />
     </div>
 
+    @if (!MyCoursesService.MyCourses.Any())
+    {
+        <p>You have no courses yet.</p>
+    }
+    else
+    {
+        <div class="row g-3 mc-grid">
+            @foreach (var c in MyCoursesService.MyCourses.Where(MatchesSearch))
+            {
+                <div class="col-12 col-sm-6 col-lg-4">
+
+                    <div class="mc-card">
+
+                        <!-- IMAGE -->
+                        <div class="mc-thumb-wrapper">
+                            <img src="@c.Thumbnail" class="mc-thumb" />
+                        </div>
+
+                        <!-- BODY -->
+                        <div class="mc-card-body">
+                            <h6 class="fw-bold mc-card-title">@c.Title</h6>
+                            <p class="small mc-card-category">@c.Category</p>
+
+                            <div class="mc-buttons">
+
+                                <!-- VIEW COURSE -->
+                                <button class="btn-purple w-100"
+                                        @onclick="() => ViewCourse(c.Id)">
+                                    <i class="bi bi-play-circle me-1"></i> View Course
+                                </button>
+
+                                <!-- REMOVE COURSE -->
+                                <button class="btn btn-danger w-100"
+                                        @onclick="() => RemoveCourse(c.Id)">
+                                    <i class="bi bi-x-circle me-1"></i> Remove
+                                </button>
+
+                            </div>
+                        </div>
+
+                    </div>
+
+                </div>
+            }
+        </div>
+    }
 </div>
 
 @code {
     private string _search = "";
 
-    private bool MatchesSearch(MyCourse c) =>
+    private void OnSearch(string value)
+    {
+        _search = value;
+    }
+
+    private bool MatchesSearch(CourseDto c) =>
         string.IsNullOrWhiteSpace(_search)
         || c.Title.Contains(_search, StringComparison.OrdinalIgnoreCase)
         || c.Category.Contains(_search, StringComparison.OrdinalIgnoreCase);
 
-    void ContinueCourse(int id)
+    void ViewCourse(int id)
     {
         Navigation.NavigateTo($"/course/{id}");
     }
 
     void RemoveCourse(int id)
     {
-        _myCourses = _myCourses.Where(x => x.Id != id).ToList();
+        MyCoursesService.RemoveCourse(id);
+        Toasts.ShowSuccess("Course removed.");
     }
-
-    public class MyCourse
-    {
-        public int Id { get; set; }
-        public string Title { get; set; } = "";
-        public string Category { get; set; } = "";
-        public int Progress { get; set; }
-        public string TimeLeft { get; set; } = "";
-        public string Thumbnail { get; set; } = "";
-    }
-
-    private List<MyCourse> _myCourses = new()
-    {
-        new MyCourse { Id=1, Title="Mastering C#", Category="Programming", Progress=65, TimeLeft="1h left", Thumbnail="https://images.unsplash.com/photo-1523289333742-be1143f6b766?q=80&w=600" },
-        new MyCourse { Id=2, Title="UI/UX Essentials", Category="Design", Progress=30, TimeLeft="3h left", Thumbnail="https://images.unsplash.com/photo-1559028012-481c04fa702d?q=80&w=600" },
-        new MyCourse { Id=3, Title="JavaScript Deep Dive", Category="Frontend", Progress=75, TimeLeft="45m left", Thumbnail="https://images.unsplash.com/photo-1531482615713-2afd69097998?q=80&w=600" },
-        new MyCourse { Id=4, Title="Docker Fundamentals", Category="DevOps", Progress=20, TimeLeft="4h left", Thumbnail="https://images.unsplash.com/photo-1605902711622-cfb43c44367e?q=80&w=600" },
-        new MyCourse { Id=5, Title="SQL Basics", Category="Database", Progress=10, TimeLeft="5h left", Thumbnail="https://images.unsplash.com/photo-1519389950473-47ba0277781c?q=80&w=600" }
-    };
 }

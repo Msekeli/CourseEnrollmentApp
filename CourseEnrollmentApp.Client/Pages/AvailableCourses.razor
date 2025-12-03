@@ -3,39 +3,59 @@
 @attribute [Authorize]
 
 @inject CourseApiService CourseService
-@inject NavigationManager Nav
+@inject MyCoursesService MyCourses
+@inject ToastService Toasts
 
 <PageHeading Text="Available Courses" />
+
+<!-- SEARCH BAR -->
+<div class="mt-3 mb-3">
+    <SearchBar Value="@_searchTerm" ValueChanged="OnSearch" Placeholder="Search courses..." />
+</div>
 
 @if (_loading)
 {
     <p>Loading courses...</p>
 }
-else if (_courses.Count == 0)
+else if (_filtered.Count == 0)
 {
-    <p>No courses available.</p>
+    <p>No courses found.</p>
 }
 else
 {
     <div class="row g-3 mt-2">
-        @foreach (var c in _courses)
+        @foreach (var c in _filtered)
         {
             <div class="col-12 col-sm-6 col-lg-4">
-                <div class="ac-card shadow-sm">
 
+                <div class="ac-card shadow-sm">
                     <img src="@c.Thumbnail" class="ac-thumb" />
 
                     <div class="ac-body">
                         <h6 class="fw-bold text-dark">@c.Title</h6>
                         <p class="text-purple small">@c.Category</p>
 
+                        <!-- ADD COURSE ONLY -->
                         <button class="btn-purple w-100"
-                                @onclick="() => ViewCourse(c.Id)">
-                            View Course
-                        </button>
-                    </div>
+                                @onclick="() => AddCourse(c)">
 
+                            @if (MyCourses.IsAdded(c.Id))
+                            {
+                                <span>
+                                    <i class="bi bi-check-circle me-1"></i> Already Added
+                                </span>
+                            }
+                            else
+                            {
+                                <span>
+                                    <i class="bi bi-plus-circle me-1"></i> Add Course
+                                </span>
+                            }
+                        </button>
+
+                    </div>
                 </div>
+
             </div>
         }
     </div>
@@ -43,17 +63,47 @@ else
 
 @code {
     private bool _loading = true;
+    private string _searchTerm = "";
     private List<CourseDto> _courses = new();
+    private List<CourseDto> _filtered = new();
 
     protected override async Task OnInitializedAsync()
     {
         _loading = true;
+
         _courses = await CourseService.GetAllAsync() ?? new();
+        _filtered = _courses;
+
         _loading = false;
     }
 
-    void ViewCourse(int id)
+    private void OnSearch(string term)
     {
-        Nav.NavigateTo($"/course/{id}");
+        _searchTerm = term;
+
+        if (string.IsNullOrWhiteSpace(term))
+        {
+            _filtered = _courses;
+        }
+        else
+        {
+            _filtered = _courses
+                .Where(c =>
+                    c.Title.Contains(term, StringComparison.OrdinalIgnoreCase) ||
+                    c.Category.Contains(term, StringComparison.OrdinalIgnoreCase))
+                .ToList();
+        }
+    }
+
+    void AddCourse(CourseDto course)
+    {
+        if (MyCourses.IsAdded(course.Id))
+        {
+            Toasts.ShowError("Course already added.");
+            return;
+        }
+
+        MyCourses.AddCourse(course);
+        Toasts.ShowSuccess("Course added to My Courses!");
     }
 }

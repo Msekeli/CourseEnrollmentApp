@@ -14,23 +14,24 @@
         <!-- FULL NAME -->
         <div class="mb-3">
             <label class="form-label">Full Name</label>
-            <input class="form-control" @bind="_model.Name" />
+            <input class="form-control" @bind="_model.Name" required />
         </div>
 
         <!-- EMAIL -->
         <div class="mb-3">
             <label class="form-label">Email</label>
-            <input class="form-control" @bind="_model.Email" type="email" />
+            <input class="form-control" @bind="_model.Email" type="email" required />
         </div>
 
         <!-- PASSWORD -->
         <div class="mb-3">
             <label class="form-label">Password</label>
-            <input class="form-control" @bind="_model.Password" type="password" />
+            <input class="form-control" @bind="_model.Password" type="password" required />
         </div>
 
-        <button type="submit" class="btn-purple w-100 auth-btn">
-            Register
+        <!-- SUBMIT BUTTON -->
+        <button type="submit" class="btn-purple w-100 auth-btn" disabled="@_loading">
+            @(_loading ? "Creating..." : "Register")
         </button>
 
     </EditForm>
@@ -44,20 +45,25 @@
 
 @code {
     private RegisterDto _model = new();
+    private bool _loading = false;
 
     private async Task Submit()
     {
-        Console.WriteLine("SUBMIT FIRED"); // Debug message
+        _loading = true;
+
+        Console.WriteLine("Register Submit() fired"); 
 
         var token = await AuthService.RegisterAsync(_model);
 
+        _loading = false;
+
         if (string.IsNullOrEmpty(token))
         {
-            Console.WriteLine("REGISTER FAILED");
+            Console.WriteLine("Register failed"); 
             return;
         }
 
-        Console.WriteLine("REGISTER SUCCESS");
+        Console.WriteLine("Register success! Redirecting..."); 
         Nav.NavigateTo("/login");
     }
 }

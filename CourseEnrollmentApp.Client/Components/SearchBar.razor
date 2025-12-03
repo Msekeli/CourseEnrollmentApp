@@ -3,8 +3,8 @@
 <div class="searchbar-wrapper fade-up">
     <div class="input-group searchbar-container">
         <input class="form-control input-field"
-               @bind="Value"
-               @bind:event="oninput"
+               value="@Value"
+               @oninput="OnInput"
                placeholder="@Placeholder" />
 
         <span class="input-group-text input-icon">
@@ -17,4 +17,10 @@
     [Parameter] public string Value { get; set; } = "";
     [Parameter] public EventCallback<string> ValueChanged { get; set; }
     [Parameter] public string Placeholder { get; set; } = "Search...";
+
+    private async Task OnInput(ChangeEventArgs e)
+    {
+        Value = e.Value?.ToString() ?? "";
+        await ValueChanged.InvokeAsync(Value);
+    }
 }

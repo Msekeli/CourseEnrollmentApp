@@ -1,0 +1,64 @@
+@page "/course/{Id:int}"
+@layout MainLayout
+@attribute [Authorize]
+
+@inject CourseApiService CourseService
+@inject NavigationManager Nav
+
+<PageHeading Text="@_course?.Title" />
+
+@if (_loading)
+{
+    <p>Loading course...</p>
+}
+else if (_course == null)
+{
+    <p>Course not found.</p>
+}
+else
+{
+    <div class="container mt-4 fade-up">
+
+        <h2 class="fw-bold text-center mb-3">
+            Welcome to @(_course.Title)
+        </h2>
+
+        <p class="text-center text-purple mb-4">
+            @(_course.Category)
+        </p>
+
+        <div class="text-center mb-4">
+            <img src="@_course.Thumbnail" class="img-fluid rounded" style="max-height: 240px; object-fit: cover;" />
+        </div>
+
+        <div class="mt-3">
+            <p>@_course.Description</p>
+        </div>
+
+        <button class="btn-purple mt-4" @onclick="GoBack">
+            <i class="bi bi-arrow-left me-1"></i> Back
+        </button>
+
+    </div>
+}
+
+@code {
+    [Parameter] public int Id { get; set; }
+
+    private bool _loading = true;
+    private CourseDto? _course;
+
+    protected override async Task OnInitializedAsync()
+    {
+        _loading = true;
+
+        _course = await CourseService.GetByIdAsync(Id);
+
+        _loading = false;
+    }
+
+    void GoBack()
+    {
+        Nav.NavigateTo("/my-courses");
+    }
+}

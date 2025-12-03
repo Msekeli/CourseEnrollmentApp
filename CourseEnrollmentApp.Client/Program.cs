@@ -25,5 +25,7 @@ builder.Services.AddScoped<AuthApiService>();
 builder.Services.AddScoped<CourseApiService>();
 builder.Services.AddScoped<StudentApiService>();
 builder.Services.AddScoped<HomeApiService>();
+builder.Services.AddSingleton<MyCoursesService>();
+builder.Services.AddSingleton<ToastService>();
 
 await builder.Build().RunAsync();

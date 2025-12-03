@@ -1,0 +1,48 @@
+@inject ToastService Toasts
+
+<div class="toast-container position-fixed bottom-0 end-0 p-3" style="z-index:9999;">
+    @foreach (var t in _toasts)
+    {
+        <div class="toast show text-white bg-@t.Type mb-2">
+            <div class="toast-body">
+                @t.Message
+            </div>
+        </div>
+    }
+</div>
+
+@code {
+    private List<ToastMessage> _toasts = new();
+
+    protected override void OnInitialized()
+    {
+        Toasts.OnShow += AddToast;
+    }
+
+    void AddToast(string type, string message)
+    {
+        var toast = new ToastMessage(type, message);
+        _toasts.Add(toast);
+
+        var _ = Task.Run(async () =>
+        {
+            await Task.Delay(2500);
+            _toasts.Remove(toast);
+            StateHasChanged();
+        });
+
+        StateHasChanged();
+    }
+
+    class ToastMessage
+    {
+        public string Type { get; }
+        public string Message { get; }
+
+        public ToastMessage(string type, string message)
+        {
+            Type = type;
+            Message = message;
+        }
+    }
+}
