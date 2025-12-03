@@ -4,8 +4,6 @@
     <TargetFramework>net8.0</TargetFramework>
     <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
-
-    <!-- ⭐ REQUIRED for isolated CSS to work -->
     <ScopedCssEnabled>true</ScopedCssEnabled>
   </PropertyGroup>
 
@@ -14,10 +12,6 @@
     <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly" Version="8.0.21" />
     <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly.Authentication" Version="8.0.0" />
     <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly.DevServer" Version="8.0.21" PrivateAssets="all" />
-
-    <!-- MudBlazor -->
-    <PackageReference Include="MudBlazor" Version="8.0.0" />
-    <PackageReference Include="MudBlazor.ThemeManager" Version="3.0.0" />
   </ItemGroup>
 
   <ItemGroup>

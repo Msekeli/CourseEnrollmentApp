@@ -229,3 +229,23 @@ a {
 .bg-purple {
     background: var(--purple) !important;
 }
+.btn-purple {
+    background: #6A0DAD !important;
+    color: #fff !important;
+    border: 0;
+    font-weight: 600;
+    padding: 12px;
+    border-radius: 10px;
+    cursor: pointer;
+    display: block;
+    text-align: center;
+}
+
+.btn-purple:hover {
+    background: #580996 !important;
+}
+
+.btn-purple:disabled {
+    opacity: 0.6;
+}
+

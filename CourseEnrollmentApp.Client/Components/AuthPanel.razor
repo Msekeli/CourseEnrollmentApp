@@ -1,11 +1,19 @@
-@namespace CourseEnrollmentApp.Client.Components
+<div class="premium-auth-bg">
 
-<div class="auth-panel-wrapper fade-up">
-    <div class="auth-panel glass-card">
+    <div class="premium-auth-panel animate-fade-in">
+
+        @if (!string.IsNullOrEmpty(Title))
+        {
+            <h3 class="auth-title text-center mb-3">@Title</h3>
+        }
+
         @ChildContent
+
     </div>
+
 </div>
 
 @code {
+    [Parameter] public string? Title { get; set; }
     [Parameter] public RenderFragment? ChildContent { get; set; }
 }

@@ -5,18 +5,15 @@
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
-
     display: flex;
     justify-content: center;
     align-items: center;
-
-    position: relative;
 }
 
 .premium-auth-panel {
     background: rgba(255, 255, 255, 0.18);
     backdrop-filter: blur(12px);
-    padding: 50px 40px;
+    padding: 40px;
     border-radius: 20px;
     max-width: 450px;
     width: 90%;
@@ -25,22 +22,11 @@
 }
 
 .auth-title {
-    margin-bottom: 20px;
+    text-align: center;
     font-weight: 600;
+    margin-bottom: 24px;
 }
 
-.auth-btn {
-    margin-top: 20px;
-    padding: 14px;
-    border-radius: 12px;
-}
-
-.auth-footer {
-    margin-top: 18px;
-    opacity: 0.9;
-}
-
-/* Fade-in animation */
 .animate-fade-in {
     animation: fadeInUp 0.9s ease forwards;
     opacity: 0;

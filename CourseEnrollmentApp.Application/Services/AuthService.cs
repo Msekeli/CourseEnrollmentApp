@@ -1,7 +1,7 @@
 using CourseEnrollmentApp.Application.DTOs;
 using CourseEnrollmentApp.Application.Interfaces;
-using CourseEnrollmentApp.Domain.Entities;
 using CourseEnrollmentApp.Application.Security;
+using CourseEnrollmentApp.Domain.Entities;
 
 namespace CourseEnrollmentApp.Application.Services;
 
@@ -31,9 +31,8 @@ public class AuthService : IAuthService
 
     public async Task<string> LoginAsync(LoginDto dto)
     {
-        var allStudents = await _studentRepo.GetAllAsync();
-        var student = allStudents.FirstOrDefault(s =>
-            s.Email == dto.Email);
+        var students = await _studentRepo.GetAllAsync();
+        var student = students.FirstOrDefault(s => s.Email == dto.Email);
 
         if (student == null)
             return string.Empty;

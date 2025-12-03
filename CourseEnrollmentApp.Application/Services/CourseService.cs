@@ -18,26 +18,13 @@ public class CourseService : ICourseService
         var course = await _courseRepo.GetByIdAsync(id);
         if (course == null) return null;
 
-        return new CourseDto
-        {
-            Id = course.Id,
-            Title = course.Title,
-            Description = course.Description,
-            EnrolledStudentIds = course.Enrollments.Select(e => e.StudentId).ToList()
-        };
+        return MapToDto(course);
     }
 
     public async Task<List<CourseDto>> GetAllCoursesAsync()
     {
         var courses = await _courseRepo.GetAllAsync();
-
-        return courses.Select(course => new CourseDto
-        {
-            Id = course.Id,
-            Title = course.Title,
-            Description = course.Description,
-            EnrolledStudentIds = course.Enrollments.Select(e => e.StudentId).ToList()
-        }).ToList();
+        return courses.Select(MapToDto).ToList();
     }
 
     public async Task<CourseDto> CreateCourseAsync(CourseDto dto)
@@ -45,17 +32,29 @@ public class CourseService : ICourseService
         var course = new Course
         {
             Title = dto.Title,
-            Description = dto.Description
+            Description = dto.Description,
+            Thumbnail = dto.Thumbnail,
+            Category = dto.Category
         };
 
         await _courseRepo.AddAsync(course);
 
+        return MapToDto(course);
+    }
+
+    // -----------------------------
+    // Mapping helper
+    // -----------------------------
+    private static CourseDto MapToDto(Course course)
+    {
         return new CourseDto
         {
             Id = course.Id,
             Title = course.Title,
             Description = course.Description,
-            EnrolledStudentIds = new()
+            Thumbnail = course.Thumbnail,
+            Category = course.Category,
+            EnrolledStudentIds = course.Enrollments.Select(e => e.StudentId).ToList()
         };
     }
 }

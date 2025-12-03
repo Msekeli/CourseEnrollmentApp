@@ -20,26 +20,13 @@ public class StudentService : IStudentService
         var student = await _studentRepo.GetByIdAsync(id);
         if (student == null) return null;
 
-        return new StudentDto
-        {
-            Id = student.Id,
-            Name = student.Name,
-            Email = student.Email,
-            EnrolledCourseIds = student.Enrollments.Select(e => e.CourseId).ToList()
-        };
+        return MapToDto(student);
     }
 
     public async Task<List<StudentDto>> GetAllStudentsAsync()
     {
         var students = await _studentRepo.GetAllAsync();
-
-        return students.Select(student => new StudentDto
-        {
-            Id = student.Id,
-            Name = student.Name,
-            Email = student.Email,
-            EnrolledCourseIds = student.Enrollments.Select(e => e.CourseId).ToList()
-        }).ToList();
+        return students.Select(MapToDto).ToList();
     }
 
     public async Task<StudentDto> RegisterStudentAsync(RegisterDto dto)
@@ -52,13 +39,7 @@ public class StudentService : IStudentService
 
         await _studentRepo.AddAsync(student);
 
-        return new StudentDto
-        {
-            Id = student.Id,
-            Name = student.Name,
-            Email = student.Email,
-            EnrolledCourseIds = new()
-        };
+        return MapToDto(student);
     }
 
     public async Task EnrollStudentAsync(int studentId, int courseId)
@@ -69,17 +50,16 @@ public class StudentService : IStudentService
         if (student == null || course == null)
             return;
 
-        // Already enrolled check
-        if (student.Enrollments.Any(e => e.CourseId == courseId))
-            return;
-
-        student.Enrollments.Add(new Enrollment
+        if (!student.Enrollments.Any(e => e.CourseId == courseId))
         {
-            StudentId = studentId,
-            CourseId = courseId
-        });
+            student.Enrollments.Add(new Enrollment
+            {
+                StudentId = studentId,
+                CourseId = courseId
+            });
 
-        await _studentRepo.UpdateAsync(student);
+            await _studentRepo.UpdateAsync(student);
+        }
     }
 
     public async Task UnenrollStudentAsync(int studentId, int courseId)
@@ -87,13 +67,10 @@ public class StudentService : IStudentService
         var student = await _studentRepo.GetByIdAsync(studentId);
         if (student == null) return;
 
-        var enrollment = student.Enrollments
-            .FirstOrDefault(e => e.CourseId == courseId);
-
+        var enrollment = student.Enrollments.FirstOrDefault(e => e.CourseId == courseId);
         if (enrollment == null) return;
 
         student.Enrollments.Remove(enrollment);
-
         await _studentRepo.UpdateAsync(student);
     }
 
@@ -108,8 +85,24 @@ public class StudentService : IStudentService
                 Id = e.CourseId,
                 Title = e.Course?.Title ?? "",
                 Description = e.Course?.Description ?? "",
+                Thumbnail = e.Course?.Thumbnail ?? "",
+                Category = e.Course?.Category ?? "",
                 EnrolledStudentIds = e.Course?.Enrollments.Select(x => x.StudentId).ToList() ?? new()
             })
             .ToList();
+    }
+
+    // -----------------------------
+    // Mapping helper
+    // -----------------------------
+    private static StudentDto MapToDto(Student student)
+    {
+        return new StudentDto
+        {
+            Id = student.Id,
+            Name = student.Name,
+            Email = student.Email,
+            EnrolledCourseIds = student.Enrollments.Select(e => e.CourseId).ToList()
+        };
     }
 }

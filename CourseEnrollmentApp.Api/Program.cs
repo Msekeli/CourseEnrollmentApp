@@ -14,15 +14,19 @@ var builder = WebApplication.CreateBuilder(args);
 // Add services to the container.
 builder.Services.AddControllers();
 
+// Repositories
 builder.Services.AddScoped<IStudentRepository, StudentRepository>();
 builder.Services.AddScoped<ICourseRepository, CourseRepository>();
+
+// Services
 builder.Services.AddScoped<IStudentService, StudentService>();
 builder.Services.AddScoped<ICourseService, CourseService>();
+builder.Services.AddScoped<IAuthService, AuthService>();
 
+// JWT Setup
 var jwtKey = builder.Configuration["Jwt:Key"] ?? "default_secret_key";
 var keyBytes = Encoding.UTF8.GetBytes(jwtKey);
 
-// Register JwtTokenGenerator
 builder.Services.AddSingleton(new JwtTokenGenerator(jwtKey));
 
 builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
@@ -38,11 +42,22 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
         };
     });
 
-// Register the InMemory database
+// InMemory Database
 builder.Services.AddDbContext<AppDbContext>(options =>
     options.UseInMemoryDatabase("CourseEnrollmentDb"));
 
-// Swagger + JWT
+// 🚀 CORS POLICY — THIS FIXES THE BROWSER BLOCKING
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("AllowBlazor", policy =>
+    {
+        policy.WithOrigins("http://localhost:5132") // Blazor WASM URL
+              .AllowAnyHeader()
+              .AllowAnyMethod();
+    });
+});
+
+// Swagger + JWT Support
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen(c =>
 {
@@ -74,12 +89,22 @@ builder.Services.AddSwaggerGen(c =>
 
 var app = builder.Build();
 
-// Configure the HTTP request pipeline.
+// Seed database
+using (var scope = app.Services.CreateScope())
+{
+    var db = scope.ServiceProvider.GetRequiredService<AppDbContext>();
+    DbSeeder.Seed(db);
+}
+
+// Pipeline
 if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
     app.UseSwaggerUI();
 }
+
+// 🚀 APPLY CORS BEFORE AUTH
+app.UseCors("AllowBlazor");
 
 app.UseHttpsRedirection();
 

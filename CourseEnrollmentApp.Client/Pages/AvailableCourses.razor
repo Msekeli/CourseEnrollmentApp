@@ -1,63 +1,59 @@
 @page "/available-courses"
-@attribute [Authorize]
 @layout MainLayout
-@using CourseEnrollmentApp.Client.Components
+@attribute [Authorize]
+
+@inject CourseApiService CourseService
+@inject NavigationManager Nav
+
 <PageHeading Text="Available Courses" />
 
-<SearchBar @bind-Value="_search" Placeholder="Search courses..." />
-
-<div class="container-fluid mt-4">
-
-    <div class="row g-3">
-        @foreach (var c in _courses.Where(MatchesSearch))
+@if (_loading)
+{
+    <p>Loading courses...</p>
+}
+else if (_courses.Count == 0)
+{
+    <p>No courses available.</p>
+}
+else
+{
+    <div class="row g-3 mt-2">
+        @foreach (var c in _courses)
         {
             <div class="col-12 col-sm-6 col-lg-4">
+                <div class="ac-card shadow-sm">
 
-                <CourseCard Title="@c.Title"
-                            Thumbnail="@c.Thumbnail"
-                            Category="@c.Category"
+                    <img src="@c.Thumbnail" class="ac-thumb" />
 
-                            ShowPrimaryAction="true"
-                            PrimaryText="Add Course"
-                            OnPrimary="() => AddCourse(c)"
+                    <div class="ac-body">
+                        <h6 class="fw-bold text-dark">@c.Title</h6>
+                        <p class="text-purple small">@c.Category</p>
 
-                            ShowSecondaryAction="false"
-                            ShowProgress="false" />
+                        <button class="btn-purple w-100"
+                                @onclick="() => ViewCourse(c.Id)">
+                            View Course
+                        </button>
+                    </div>
+
+                </div>
             </div>
         }
     </div>
-
-</div>
+}
 
 @code {
-    private string _search = "";
+    private bool _loading = true;
+    private List<CourseDto> _courses = new();
 
-    private bool MatchesSearch(Course c) =>
-        string.IsNullOrWhiteSpace(_search)
-        || c.Title.Contains(_search, StringComparison.OrdinalIgnoreCase)
-        || c.Category.Contains(_search, StringComparison.OrdinalIgnoreCase);
-
-    // UI-only placeholder
-    private void AddCourse(Course c)
+    protected override async Task OnInitializedAsync()
     {
-        Console.WriteLine($"Course added: {c.Title}");
+        _loading = true;
+        _courses = await CourseService.GetAllAsync() ?? new();
+        _loading = false;
     }
 
-    public class Course
+    void ViewCourse(int id)
     {
-        public int Id { get; set; }
-        public string Title { get; set; } = "";
-        public string Thumbnail { get; set; } = "";
-        public string Category { get; set; } = "";
+        Nav.NavigateTo($"/course/{id}");
     }
-
-    private List<Course> _courses = new()
-    {
-        new Course { Id=1, Title="Mastering C#", Thumbnail="https://images.unsplash.com/photo-1523289333742-be1143f6b766?q=80&w=600", Category="Programming" },
-        new Course { Id=2, Title="UI/UX Essentials", Thumbnail="https://images.unsplash.com/photo-1559028012-481c04fa702d?q=80&w=600", Category="Design" },
-        new Course { Id=3, Title="JavaScript 101", Thumbnail="https://images.unsplash.com/photo-1531482615713-2afd69097998?q=80&w=600", Category="Frontend" },
-        new Course { Id=4, Title="Docker Fundamentals", Thumbnail="https://images.unsplash.com/photo-1605902711622-cfb43c44367e?q=80&w=600", Category="DevOps" },
-        new Course { Id=5, Title="SQL Basics", Thumbnail="https://images.unsplash.com/photo-1519389950473-47ba0277781c?q=80&w=600", Category="Database" },
-        new Course { Id=6, Title="Azure Cloud", Thumbnail="https://images.unsplash.com/photo-1521791055366-0d553872125f?q=80&w=600", Category="Cloud" }
-    };
 }

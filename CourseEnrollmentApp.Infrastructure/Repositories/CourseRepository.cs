@@ -18,6 +18,7 @@ public class CourseRepository : ICourseRepository
     {
         return await _context.Courses
             .Include(c => c.Enrollments)
+            .ThenInclude(e => e.Student)
             .FirstOrDefaultAsync(c => c.Id == id);
     }
 
@@ -25,6 +26,7 @@ public class CourseRepository : ICourseRepository
     {
         return await _context.Courses
             .Include(c => c.Enrollments)
+            .ThenInclude(e => e.Student)
             .ToListAsync();
     }
 

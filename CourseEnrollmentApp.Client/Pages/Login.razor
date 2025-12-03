@@ -1,53 +1,66 @@
 @page "/login"
 @layout PublicLayout
 
-<div class="auth-bg">
+@using CourseEnrollmentApp.Application.DTOs
+@inject NavigationManager Nav
+@inject AuthApiService AuthService
+@inject TokenService TokenService
 
-    <div class="auth-panel fade-up">
+<AuthPanel Title="Login">
 
-        <h3 class="auth-title mb-3 text-white fw-bold">Login</h3>
+    <EditForm Model="_model" OnValidSubmit="Submit">
+        <DataAnnotationsValidator />
+        <ValidationSummary />
 
-        <form>
+        <!-- EMAIL -->
+        <div class="mb-3">
+            <label class="form-label">Email</label>
+            <input class="form-control"
+                   @bind="_model.Email"
+                   type="email"
+                   required />
+        </div>
 
-            <!-- Email -->
-            <div class="mb-3">
-                <label class="form-label text-white">Email</label>
-                <div class="input-group">
-                    <span class="input-group-text bg-white border-0">
-                        <i class="bi bi-envelope"></i>
-                    </span>
-                    <input type="email"
-                           class="form-control auth-input"
-                           placeholder="email@example.com" />
-                </div>
-            </div>
+        <!-- PASSWORD -->
+        <div class="mb-3">
+            <label class="form-label">Password</label>
+            <input class="form-control"
+                   @bind="_model.Password"
+                   type="password"
+                   required />
+        </div>
 
-            <!-- Password -->
-            <div class="mb-3">
-                <label class="form-label text-white">Password</label>
-                <div class="input-group">
-                    <span class="input-group-text bg-white border-0">
-                        <i class="bi bi-lock"></i>
-                    </span>
-                    <input type="password"
-                           class="form-control auth-input"
-                           placeholder="Your password" />
-                </div>
-            </div>
+        <!-- LOGIN BUTTON -->
+        <button type="submit" class="btn-purple w-100 auth-btn">
+            Login
+        </button>
+    </EditForm>
 
-            <!-- Login Button -->
-            <button class="btn btn-purple w-100 py-2 fw-bold mt-2">
-                <i class="bi bi-box-arrow-in-right me-1"></i>
-                Login
-            </button>
+    <p class="auth-footer">
+        Don’t have an account?
+        <a href="/register" class="text-white fw-bold">Register</a>
+    </p>
 
-        </form>
+</AuthPanel>
 
-        <p class="text-center text-white mt-3 small">
-            Don't have an account?
-            <a href="/register" class="text-white fw-bold">Create Account</a>
-        </p>
+@code {
+    private LoginDto _model = new();
 
-    </div>
+    private async Task Submit()
+    {
+        Console.WriteLine("LOGIN SUBMIT FIRED"); // Debug check
 
-</div>
+        var token = await AuthService.LoginAsync(_model);
+
+        if (string.IsNullOrEmpty(token))
+        {
+            Console.WriteLine("LOGIN FAILED"); // Debug check
+            return;
+        }
+
+        Console.WriteLine("LOGIN SUCCESS"); // Debug check
+        await TokenService.SetTokenAsync(token);
+
+        Nav.NavigateTo("/home", true);
+    }
+}
